@@ -1,0 +1,67 @@
+bridges = []
+
+[[agents]]
+id = "charlie"
+name = "charlie"
+keystore_file = "{{ c.KEYS_DIR }}/charlie.key"
+public_address = "{{ c.KEY_CHARLIE }}"
+
+
+
+[[dnas]]
+id = "zome_a"
+file = "{{ c.DNA_FILE_PATH }}"
+hash = "{{ c.DNA_HASH }}"
+
+
+
+[[instances]]
+id = "instance_charlie"
+agent = "charlie"
+dna = "zome_a"
+    [instances.storage]
+    type = "pickle"
+    path = "/tmp/hc/storage/{{ c.DNA_HASH }}/charlie"
+
+
+
+[[interfaces]]
+id = "interface_websocket"
+admin = true
+    [interfaces.driver]
+    port = 9999
+    type = "websocket"
+    [[interfaces.instances]]
+    id = "instance_charlie"
+# [[interfaces]]
+# id = "interface_http"
+# admin = true
+#     [interfaces.driver]
+#     type = "http"
+#     port = 4000
+#     [[interfaces.instances]]
+#     id = "instance_charlie"
+
+# ---------  Network  ----------
+
+bootstrap_nodes = [
+    "wss://192.168.8.109:50008/?a=HcScJvInqCfzuahr7q8Pn6sQ86D99QSY74arEn46oam7oqsyjgxoqdXahbat4ga"
+]
+
+# -----------  Logging  -----------
+
+[logger]
+type = "debug"
+    [[logger.rules.rules]]
+    color = "red"
+    exclude = false
+    pattern = "^err/"
+
+    [[logger.rules.rules]]
+    color = "yellow"
+    exclude = false
+    pattern = "^debug/dna"
+
+    [[logger.rules.rules]]
+    exclude = false
+    pattern = ".*"

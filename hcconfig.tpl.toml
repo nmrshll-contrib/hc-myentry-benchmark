@@ -1,0 +1,96 @@
+bridges = []
+
+[[agents]]
+id = "alice"
+name = "alice"
+keystore_file = "{{ c.KEYS_DIR }}/alice.key"
+public_address = "{{ c.KEY_ALICE }}"
+
+[[agents]]
+id = "bob"
+name = "bob"
+keystore_file = "{{ c.KEYS_DIR }}/bob.key"
+public_address = "{{ c.KEY_BOB }}"
+
+
+
+[[dnas]]
+id = "zome_a"
+file = "{{ c.DNA_FILE_PATH }}"
+hash = "{{ c.DNA_HASH }}"
+
+
+
+[[instances]]
+id = "instance_alice"
+agent = "alice"
+dna = "zome_a"
+    [instances.storage]
+    type = "pickle"
+    path = "/tmp/hc/storage/{{ c.DNA_HASH }}/alice"
+[[instances]]
+id = "instance_bob"
+agent = "bob"
+dna = "zome_a"
+    [instances.storage]
+    type = "pickle"
+    path = "/tmp/hc/storage/{{ c.DNA_HASH }}/bob"
+
+
+
+[[interfaces]]
+id = "interface_websocket"
+admin = true
+    [interfaces.driver]
+    port = 8888
+    type = "websocket"
+    [[interfaces.instances]]
+    id = "instance_alice"
+    [[interfaces.instances]]
+    id = "instance_bob"
+[[interfaces]]
+id = "interface_http"
+admin = true
+    [interfaces.driver]
+    type = "http"
+    port = 4000
+    [[interfaces.instances]]
+    id = "instance_alice"
+
+# ---------  Network  ----------
+
+[network]
+type = "n3h"
+n3h_persistence_path = "/tmp/hc/network/{{ c.DNA_HASH }}"
+bootstrap_nodes = []
+
+
+# -----------  UI  -----------
+
+[[ui_bundles]]
+id = "bundle_ui"
+root_dir = "./web-ui"
+
+[[ui_interfaces]]
+id = "ui_interface"
+bundle = "bundle_ui"
+port = 8908
+dna_interface = "interface_websocket"
+
+# -----------  Logging  -----------
+
+[logger]
+type = "debug"
+    [[logger.rules.rules]]
+    color = "red"
+    exclude = false
+    pattern = "^err/"
+
+    [[logger.rules.rules]]
+    color = "yellow"
+    exclude = false
+    pattern = "^debug/dna"
+
+    # [[logger.rules.rules]]
+    # exclude = false
+    # pattern = ".*"

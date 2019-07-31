@@ -1,0 +1,5 @@
+[workspace]
+
+members = [
+    "zomes/zome_a/code",
+]

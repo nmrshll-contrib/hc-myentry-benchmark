@@ -1,0 +1,14 @@
+---
+  threads: 1
+  base: 'http://localhost:4000'
+  iterations: 60
+  rampup: 5
+  
+  plan:
+    - name: Transfer endpoint
+      request:
+        url: /
+        method: POST
+        headers:
+          content-type: application/json
+        body: '{"jsonrpc":"2.0","method":"call","params":{"instance_id":"instance_alice","zome":"zome_a","function":"transfer","args":{"recipient":"HcSCiusMpqD9tfas5yOKZ5cOkYsqrkwaoK8a3oBR7J6Yjpz3ztxmsOeDkgbthfz","amount":20}},"id":4}'

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+target/
+.cache/
+.config/
+.hc
+**/.env
