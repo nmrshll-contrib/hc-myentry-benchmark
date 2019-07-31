@@ -11,8 +11,8 @@ addnode: deps gen-keys build
 
 POST-/info-instances:
 	${jsonRPC} -d '{"jsonrpc": "2.0","id": "0","method": "info/instances"}'
-POST-/alice-transfer-alice:
-	${jsonRPC} -d '{"jsonrpc":"2.0","method":"call","params":{"instance_id":"instance_alice","zome":"zome_a","function":"transfer","args":{"recipient":"HcSCiusMpqD9tfas5yOKZ5cOkYsqrkwaoK8a3oBR7J6Yjpz3ztxmsOeDkgbthfz","amount":20}},"id":4}'
+POST-/create-entry:
+	${jsonRPC} -d '{"jsonrpc":"2.0","method":"call","params":{"instance_id":"instance_alice","zome":"zome_a","function":"create_my_entry","args":{"entry":{"content":"sample content"}}},"id":4}'
 bench:
 	drill --benchmark test/benchmark.yml --stats
 BOOTSTRAP-POST-/info-instances:
