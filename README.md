@@ -2,7 +2,7 @@
 
 # Reproducing the benchamrk
 
-##1. Run a node
+## 1. Run a node
 
 To run a first node, run `make`
 
@@ -11,6 +11,6 @@ Run `make` again. This time the program will complain about bob's public key. Do
 
 Now if you relaunch `make` the node should run all right.
 
-##2. Run the benchmark
+## 2. Run the benchmark
 
 From another new terminal, run `make bench`
